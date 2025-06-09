@@ -66,8 +66,7 @@ def recommendation(data: UserInput, max_recom: int = Query(5), treshold: float =
         if not (model_load and user_vec_loaded and dest_vec_loaded):
             return {
                 "status": "error",
-                "message": "Model atau vocab gagal di load",
-                "data": []
+                "message": "Model atau vocab gagal di load"
             }
 
         main_function = model.signatures['serving_default']
