@@ -102,6 +102,6 @@ def recommendation(data: UserInput, max_recom: int = Query(5), treshold: float =
     except Exception as e:
         return {
             "status": "error",
-            "message": f"Gagal melakukan rekomendasi: {str(e)}",
+            "message": f"Gagal melakukan rekomendasi: {e}",
             "data": []
         }
