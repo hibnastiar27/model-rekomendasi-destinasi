@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Query
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 import numpy as np
 import tensorflow as tf
@@ -105,3 +106,11 @@ def recommendation(data: UserInput, max_recom: int = Query(5), treshold: float =
             "message": f"Gagal melakukan rekomendasi: {e}",
             "data": []
         }
+        
+@app.get("/")
+def read_root():
+    return FileResponse("rekomendasi.html")
+
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run("main:app", host="0.0.0.0", port=8000)

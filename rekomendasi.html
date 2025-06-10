@@ -23,7 +23,7 @@
         const userInput = document.getElementById("input-user").value;
 
         axios
-          .post("http://localhost:8000/recommendation", {
+          .post("/recommendation", {
             user_survey: userInput,
           })
           .then((res) => {
