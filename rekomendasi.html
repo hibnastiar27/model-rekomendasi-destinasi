@@ -1,48 +1,55 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <title>Rekomendasi Destinasi</title>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-</head>
-<body>
-  <h2>Rekomendasi Destinasi Terbaik</h2>
-  <input type="text" id="input-user" placeholder="Tulis preferensi wisata..." />
-  <button onclick="getRekomendasi()">Dapatkan Rekomendasi</button>
-  <h2>Rekomendasi tipe</h2>
-  <ul id="list-rekomendasi"></ul>
-  <h2>Rekomendasi tempat</h2>
-  <ul id="list-rekomendasi_tempat"></ul>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Rekomendasi Destinasi</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h2>Rekomendasi Destinasi Terbaik</h2>
+    <input
+      type="text"
+      id="input-user"
+      placeholder="Tulis preferensi wisata..."
+    />
+    <button onclick="getRekomendasi()">Dapatkan Rekomendasi</button>
+    <h2>Rekomendasi tipe</h2>
+    <ul id="list-rekomendasi"></ul>
+    <h2>Rekomendasi tempat</h2>
+    <ul id="list-rekomendasi_tempat"></ul>
 
-  <script>
-    function getRekomendasi() {
-      const userInput = document.getElementById("input-user").value;
+    <script>
+      function getRekomendasi() {
+        const userInput = document.getElementById("input-user").value;
 
-      axios.post("http://localhost:8000/recommendation", {
-        user_survey: userInput
-      })
-      .then(res => {
-        const rekomendasi_tipe = res.data.data;
-        const rekomendasi_tempat = res.data.rekomendasi_tempat_final;
-        const ul_tipe = document.getElementById("list-rekomendasi");
-        const ul_tempat = document.getElementById("list-rekomendasi_tempat");
-        ul_tipe.innerHTML = ""; // Kosongkan list sebelumnya
-        ul_tempat.innerHTML = ""; // Kosongkan list sebelumnya
+        axios
+          .post("http://localhost:8000/recommendation", {
+            user_survey: userInput,
+          })
+          .then((res) => {
+            const rekomendasi_tipe = res.data.data;
+            const rekomendasi_tempat = res.data.rekomendasi_tempat_final;
+            const ul_tipe = document.getElementById("list-rekomendasi");
+            const ul_tempat = document.getElementById(
+              "list-rekomendasi_tempat"
+            );
+            ul_tipe.innerHTML = ""; // Kosongkan list sebelumnya
+            ul_tempat.innerHTML = ""; // Kosongkan list sebelumnya
 
-        rekomendasi_tipe.forEach(item => {
-          const li = document.createElement("li");
-          li.textContent = `${item.tipe_destinasi} → Skor: ${item.score}`;
-          ul_tipe.appendChild(li);
-        });
+            rekomendasi_tipe.forEach((item) => {
+              const li = document.createElement("li");
+              li.textContent = `${item.tipe_destinasi} → Skor: ${item.score}`;
+              ul_tipe.appendChild(li);
+            });
 
-        rekomendasi_tempat.forEach(item => {
-          const li = document.createElement("li");
-          li.textContent = `${item.nama_tempat} → tipe: ${item.tipe_wisata}`;
-          ul_tempat.appendChild(li);
-        });
-      })
-      .catch(err => console.error("Gagal fetch rekomendasi:", err));
-    }
-  </script>
-</body>
+            rekomendasi_tempat.forEach((item) => {
+              const li = document.createElement("li");
+              li.textContent = `${item.nama_tempat} → tipe: ${item.tipe_wisata}`;
+              ul_tempat.appendChild(li);
+            });
+          })
+          .catch((err) => console.error("Gagal fetch rekomendasi:", err));
+      }
+    </script>
+  </body>
 </html>
