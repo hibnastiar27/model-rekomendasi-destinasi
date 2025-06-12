@@ -26,10 +26,17 @@ list_tipe_destinasi = [
       'Rumah Berhantu', 'Peternakan wisata', 'Teater Seni Pertunjukan', 'Pelestarian Situs Peninggalan',
        'Klub Pecinta Sejarah', 'Taman karavan','Taman bermain papan seluncur']
 
+
+model = None
+model_load = False
+vector_user = None
+user_vec_loaded = False
+vector_dest = None
+dest_vec_loaded = False
+
 #  Data input
 class UserInput(BaseModel):
   user_survey : str
-  
   
 # load model
 def load_model(path : str):
@@ -55,11 +62,24 @@ def load_vocab(path : str):
     vocab = None
     vocab_load = False
     return vocab, vocab_load
+  
+@app.on_event("startup")
+def load_all_models():
+    global model, model_load, vector_user, user_vec_loaded, vector_dest, dest_vec_loaded
+    print("Loading model dan vectorizer...")
+
+    model, model_load = load_model("./models/model_recommendation")
+    vector_user, user_vec_loaded = load_vocab('./models/vectorizer_user.pkl')
+    vector_dest, dest_vec_loaded = load_vocab('./models/vectorizer_dest.pkl')
+
+    print("Model loaded:", model_load)
+    print("Vectorizer user loaded:", user_vec_loaded)
+    print("Vectorizer dest loaded:", dest_vec_loaded)
     
 
-model, model_load = load_model("./models/model_recommendation")
-vector_user, user_vec_loaded = load_vocab('./models/vectorizer_user.pkl')
-vector_dest, dest_vec_loaded = load_vocab('./models/vectorizer_dest.pkl')
+# model, model_load = load_model("./models/model_recommendation")
+# vector_user, user_vec_loaded = load_vocab('./models/vectorizer_user.pkl')
+# vector_dest, dest_vec_loaded = load_vocab('./models/vectorizer_dest.pkl')
 
 @app.post('/recommendation')
 def recommendation(data: UserInput, max_recom: int = Query(5), treshold: float = Query(0.5)):
@@ -109,8 +129,11 @@ def recommendation(data: UserInput, max_recom: int = Query(5), treshold: float =
         
 @app.get("/")
 def read_root():
-    return FileResponse("rekomendasi.html")
+    return FileResponse("/rekomendasi.html")
+  
+if __name__ == "__main__":
+    import uvicorn
+    import os
 
-# if __name__ == "__main__":
-#     import uvicorn
-#     uvicorn.run("main:app", host="0.0.0.0", port=8000)
+    port = int(os.environ.get("PORT", 8080))  # port dari environment (default 8080)
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
