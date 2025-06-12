@@ -7,7 +7,24 @@ import pickle
 
 app = FastAPI()
 
-list_tipe_destinasi = [ ... ]  # [daftar seperti sebelumnya]
+list_tipe_destinasi = [
+      'Tujuan Wisata', 'Monumen', 'Pantai', 'Toko Suvenir','Taman bermain', 'Patung', 'Toko Pie', 
+      'Bangunan Bersejarah','Taman Rekreasi Air', 'Toko Roti', 'Titik Pemandangan','Taman Hiburan', 
+      'Benteng', 'Museum Sejarah', 'Taman','Pembuat monumen', 'Arena Bermain Anak-Anak', 'Puncak Gunung',
+      'Bangunan Terkenal', 'Museum', 'Kebun Binatang', 'Area Mendaki','Pusat Perbelanjaan', 'Pusat Rekreasi',
+      'Museum arkeologi','Gunung berapi', 'Wahana Taman Hiburan','Taman Bermain Dalam Ruangan', 
+      'Taman Peringatan','Bumi perkemahan', 'Area Rekreasi Alam', 'Taman Kota','Pusat Hiburan', 'Peternakan', 
+      'Pusat Hiburan Anak-Anak','Taman Komunitas', 'Museum Ilmu Pengetahuan Alam', 'Promenade','Pantai Umum', 
+      'Taman Margasatwa dan Safari', 'Hutan Nasional','Taman Ekologi', 'Museum Seni', 'Toko Kue', 'Cagar Alam',
+      'Museum Rel Kereta', 'Semenanjung', 'Museum Bahari','Tempat bermain gokart', 'Arsip Negara',
+      'Museum Angkatan Bersenjata', 'Museum Patung', 'Museum tempat bersejarah', 'Museum Sejarah Lokal', 
+      'Lahan Piknik','Kebun Raya', 'Situs purbakala', 'Museum Hewan', 'Tempat Bersejarah', 'Taman Nasional', 
+      'Perlindungan Margasatwa', 'Akuarium', 'Perpustakaan', 'Museum Seni Modern',
+      'Wahana Bermain Salju Dalam Ruangan', 'Pusat kebudayaan','Museum Pusaka', 'Universitas Negeri', 
+      'Galeri Seni','Museum Nasional', 'Warung Camilan', 'Complex volcano', 'Kastel','Museum Sains', 
+      'Rumah Berhantu', 'Peternakan wisata', 'Teater Seni Pertunjukan', 'Pelestarian Situs Peninggalan',
+       'Klub Pecinta Sejarah', 'Taman karavan','Taman bermain papan seluncur']
+  # [daftar seperti sebelumnya]
 
 model = None
 vector_user = None
